@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KnowItAll</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: 'Montserrat', sans-serif;
+            background-color: #2e004f; 
+            color: #ffffff; 
+            background: linear-gradient(135deg, #2e004f 0%, #4b006e 100%);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+            opacity: 0;
+            animation: floatIn 1s ease forwards;
+        }
+
+        .header h1 {
+            margin-bottom: 10px;
+            font-size: 36px;
+            font-weight: 500;
+            color: #ffffff; 
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4); 
+            transition: color 0.3s, text-shadow 0.3s; 
+        }
+
+        .header h1:hover {
+            color: #f0e5ff;
+            text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.6);
+        }
+
+        .header h2 {
+            font-size: 18px;
+            font-weight: 400;
+            color: #ffffff;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+            transition: color 0.3s, text-shadow 0.3s;
+        }
+
+        .header h2:hover {
+            color: #f0e5ff;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .button-container {
+            text-align: center;
+            margin-bottom: 20px;
+            opacity: 0; 
+            animation: floatIn 1s ease forwards;
+        }
+
+        .button-container select, .button-container button {
+            margin: 10px;
+            padding: 15px 30px;
+            font-size: 18px;
+            font-weight: 500;
+            cursor: pointer;
+            border: none;
+            border-radius: 8px;
+            transition: background-color 0.3s, box-shadow 0.3s, transform 0.2s, color 0.3s;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            opacity: 0; 
+            animation: floatIn 1s ease forwards;
+        }
+
+        .button-container select {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            background-color: #ffffff; 
+            color: #8e44ad;
+            padding-right: 40px;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path fill="%238e44ad" d="M12 15l-8-8h16z"/></svg>'); /* Down arrow */
+            background-repeat: no-repeat;
+            background-position: right 10px center;
+            background-size: 16px;
+        }
+
+        .button-container select:hover {
+            background-color: #f0e5ff;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .button-container select:active {
+            transform: translateY(1px);
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2); 
+        }
+
+        .button-container button {
+            background-color: #8e44ad;
+            color: #ffffff;
+        }
+
+        .button-container button:hover {
+            background-color: #732d91;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+            transform: translateY(-2px); 
+        }
+
+        .button-container button:active {
+            transform: translateY(1px); 
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        @keyframes floatIn {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+
+    <script>
+        function loadPage() 
+        {
+            var role = document.getElementById("role").value;
+            if (role) {
+                window.location.href = '/login';
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <div class="header">
+        <h1>KnowItAll</h1>
+        <h2>Custom Quiz and Flashcard Generator</h2>
+    </div>
+
+    <div class="button-container">
+        <select id="role">
+            <option value="" disabled selected>Select your role</option>
+            <option value="teacher">Teacher</option>
+            <option value="student">Student</option>
+        </select>
+        <button onclick="loadPage()">Submit</button>
+    </div>
+
+</body>
+</html>

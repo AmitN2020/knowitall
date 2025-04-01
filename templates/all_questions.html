@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Quiz Questions and Answers</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #2e004f;
+            color: #ffffff;
+            padding: 20px;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .quiz-container {
+            max-width: 800px;
+            width: 100%;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 36px;
+            font-weight: 500;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+            text-align: center;
+        }
+
+        p {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        .question {
+            margin-bottom: 20px;
+            background-color: #4b006e;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            text-align: left;
+        }
+
+        .question h3 {
+            margin-top: 0;
+            font-size: 24px;
+            font-weight: bold;
+            color: #ffffff;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+            margin-bottom: 10px;
+        }
+
+        .question ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .question li {
+            font-size: 18px;
+            margin-bottom: 5px;
+            transition: color 0.3s;
+        }
+
+        .correct-answer {
+            font-weight: bold;
+            color: #27ae60;
+        }
+
+        a {
+            color: #ffffff;
+            text-decoration: none;
+            margin-top: 20px;
+            font-size: 16px;
+            transition: color 0.3s;
+        }
+
+        a:hover {
+            color: #cccccc;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="quiz-container">
+        <h1>Quiz: {{ quiz_name }}</h1>
+        <p>{{ quiz_description }}</p>
+
+        {% for question in questions %}
+        <div class="question">
+            <h3>Question: {{ question.question }}</h3>
+            <ul>
+                <li {% if question.correct_option == 'option1' %} class="correct-answer" {% endif %}>{{ question.option1 }}</li>
+                <li {% if question.correct_option == 'option2' %} class="correct-answer" {% endif %}>{{ question.option2 }}</li>
+                <li {% if question.correct_option == 'option3' %} class="correct-answer" {% endif %}>{{ question.option3 }}</li>
+                <li {% if question.correct_option == 'option4' %} class="correct-answer" {% endif %}>{{ question.option4 }}</li>
+            </ul>
+        </div>
+        {% endfor %}
+    </div>
+    
+    <a href="{{ url_for('quiz_main') }}">Back to Quiz Page</a>
+
+</body>
+</html>

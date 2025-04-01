@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Revision Done</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            font-family: 'Montserrat', sans-serif;
+            background-color: #2e004f;
+            color: #ffffff; 
+            opacity: 0;
+            animation: fadeIn 1s ease-in-out forwards;
+        }
+
+        h1 {
+            font-size: 36px;
+            font-weight: 500;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+            opacity: 0;
+            animation: slideIn 1s ease-in-out forwards;
+        }
+
+        img {
+            width: 100px;
+            height: auto;
+            margin-bottom: 20px;
+            opacity: 0;
+            animation: fadeIn 1.5s ease-in-out forwards;
+            animation-delay: 0.5s; /* Delay to make the image appear after the heading */
+        }
+
+        a {
+            color: #ffffff;
+            text-decoration: none;
+            margin-top: 20px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+            transition: color 0.3s, text-shadow 0.3s; 
+            opacity: 0;
+            animation: fadeIn 2s ease-in-out forwards;
+            animation-delay: 1s; /* Delay to make the link appear after the image */
+        }
+
+        a:hover {
+            color: #f3f3f3;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4); 
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Revision Done!</h1>
+    <iframe src="https://giphy.com/embed/5PtBx29UQ5G9lR9zMc" width="200" height="200" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/adac-official-smiley-face-adac-adac-like-5PtBx29UQ5G9lR9zMc" alt="Smiley Face"></a></p>
+    <a href="{{ url_for('flashcard_main') }}">Back to Home</a>
+
+</body>
+</html>

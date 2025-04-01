@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Sets</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, #2e004f 0%, #4b006e 100%);
+            color: #ffffff;
+        }
+
+        h1 {
+            font-size: 36px;
+            font-weight: 500;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            text-align: center;
+        }
+
+        ul li {
+            margin: 10px 0;
+            display: inline-block;
+        }
+
+        .back-link {
+            color: #ffffff;
+            text-decoration: none;
+            margin-top: 20px;
+            font-size: 16px;
+            transition: color 0.3s;
+        }
+
+        .back-link:hover {
+            color: #cccccc;
+        }
+
+        .label-available-sets {
+            font-size: 20px;
+            margin-top: 30px;
+            font-weight: bold;
+        }
+
+        .no-sets-message {
+            font-size: 18px;
+            margin-top: 20px;
+            color: #ffcccc;
+        }
+
+        .set-button {
+            display: inline-block;
+            padding: 15px 30px;
+            font-size: 18px;
+            font-weight: 500;
+            cursor: pointer;
+            border: none;
+            border-radius: 8px;
+            background-color: #8e44ad;
+            color: #ffffff;
+            text-decoration: none;
+            transition: background-color 0.3s, box-shadow 0.3s, transform 0.2s, color 0.3s;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .set-button:hover {
+            background-color: #732d91;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+            transform: translateY(-2px);
+            color: #ffffff;
+        }
+
+        .set-button:active {
+            transform: translateY(1px);
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Select the Set to be Deleted.</h1>
+
+    <span class="label-available-sets">Available Sets</span>
+    {% if sets %}
+    <ul id="set-list">
+        {% for set in sets %}
+            <li data-set-id="{{ set['id'] }}" data-set-name="{{ set['name'] }}">
+                <button class="set-button" aria-label="Delete Set: {{ set['name'] }}">{{ set['name'] }}</button>
+            </li>
+        {% endfor %}
+    </ul>
+
+    {% else %}
+    <p class="no-sets-message">No sets available</p>
+    {% endif %}
+
+    <a class="back-link" href="{{ url_for('flashcard_main') }}">Back to Main Page</a>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const setList = document.getElementById('set-list');
+    
+            setList.addEventListener('click', function(event) {
+                const target = event.target;
+
+                if (target.classList.contains('set-button')) {
+                    const listItem = target.closest('li');
+                    const setId = listItem.dataset.setId;
+                    const setName = listItem.dataset.setName;
+    
+                    if (confirm(`Are you sure you want to delete set "${setName}"?`)) {
+                        const deleteUrl = `/del_set/${setId}`; 
+    
+                        window.location.href = deleteUrl;
+                    } else {
+                        console.log(`Deletion of set "${setName}" cancelled.`);
+                    }
+                }
+            });
+        });
+    </script>
+    
+</body>
+</html>

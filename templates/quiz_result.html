@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Quiz Result</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: 'Montserrat', sans-serif;
+            background-color: #2e004f;
+            color: #ffffff;
+            opacity: 0;
+            animation: fadeIn 1s ease-in-out forwards;
+        }
+
+        h1, h2 {
+            font-size: 36px;
+            font-weight: 500;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4); 
+        }
+
+        .result {
+            margin-bottom: 20px;
+            background-color: #4b006e;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); 
+            text-align: center;
+            opacity: 0;
+            animation: slideIn 1s ease-in-out forwards;
+        }
+
+        .result p {
+            font-size: 24px;
+            margin: 0;
+            transition: color 0.3s, transform 0.3s;
+        }
+
+        .result p:hover {
+            color: #f0e5ff;
+            transform: scale(1.05);
+        }
+
+        .remarks {
+            font-size: 18px;
+            margin-top: 10px;
+        }
+
+        .excellent {
+            color: #27ae60;
+        }
+
+        .well-done {
+            color: #2ecc71;
+        }
+
+        .can-do-better {
+            color: #f39c12;
+        }
+
+        .needs-improvement {
+            color: #e74c3c; 
+        }
+
+        button {
+            padding: 12px 20px;
+            font-size: 18px;
+            font-weight: 500;
+            cursor: pointer;
+            border: none;
+            border-radius: 8px;
+            background-color: #8e44ad; 
+            color: #ffffff;
+            transition: background-color 0.3s, box-shadow 0.3s, transform 0.2s, color 0.3s;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        button:hover {
+            background-color: #732d91; 
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+            transform: translateY(-2px);
+        }
+
+        button:active {
+            transform: translateY(1px);
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        a {
+            color: #ffffff;
+            text-decoration: none;
+            margin-top: 20px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+            transition: color 0.3s, text-shadow 0.3s;
+        }
+
+        a:hover {
+            color: #f3f3f3;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+        }
+
+        .giphy-embed {
+            opacity: 0;
+            animation: slideInGiphy 1s ease-in-out forwards;
+            animation-delay: 1s;
+        }
+
+        @keyframes slideInGiphy {
+            from {
+                opacity: 0;
+                transform: translateX(-100px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="result">
+        <h2>Quiz Result</h2>
+        <p>Your score: {{ score }} / {{ total_questions }}</p>
+        <br>
+        
+        {% set percentage = (score / total_questions) * 100 %}
+        <div class="remarks">
+            {% if percentage == 100 %}
+                <p class="excellent">Remarks: Excellent!</p>
+                <br>
+                <iframe src="https://giphy.com/embed/xTcf0ZivxjkGRYYiRy" width="200" height="200" frameBorder="1" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/samsungmobile-happy-cute-xTcf0ZivxjkGRYYiRy"></a></p>
+            {% elif percentage > 75 %}
+                <p class="well-done">Remarks: Well Done!</p>
+                <br>
+                <iframe src="https://giphy.com/embed/5PtBx29UQ5G9lR9zMc" width="200" height="200" frameBorder="1" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/adac-official-smiley-face-adac-adac-like-5PtBx29UQ5G9lR9zMc" alt="Smiley Face"></a></p>
+            {% elif percentage > 50 %}
+                <p class="can-do-better">Remarks: Can Do Better</p>
+                <br>
+                <iframe src="https://giphy.com/embed/VELC2400W8PbG" width="250" height="140" frameBorder="1" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/emoji-art-gif-VELC2400W8PbG"></a></p>
+            {% else %}
+                <p class="needs-improvement">Remarks: Needs Improvement</p>
+                <br>
+                <iframe src="https://giphy.com/embed/11xVhnKOKtAj5e" width="200" height="200" frameBorder="1" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/sad-emoji-11xVhnKOKtAj5e" alt="sad face"></a></p>
+            {% endif %}
+        </div>       
+    </div>
+
+    <a href="{{ url_for('all_questions', quiz_id=quiz_id) }}">View All Questions</a>
+
+</body>
+</html>

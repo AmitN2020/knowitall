@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Add Question to Quiz</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: 'Montserrat', sans-serif;
+            background-color: #2e004f;
+            color: #ffffff;
+        }
+
+        h1 {
+            font-size: 36px;
+            font-weight: 500;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+        }
+
+        form {
+            width: 80%;
+            max-width: 600px;
+            background-color: #4b006e;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .form-group {
+            display: grid;
+            grid-template-columns: 1fr 3fr;
+            gap: 10px;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        label {
+            color: #ffffff;
+            font-size: 18px;
+        }
+
+        input[type="text"], select {
+            width: calc(100% - 20px);
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            background-color: #ffffff;
+            color: #333;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 16px;
+        }
+
+        button {
+            padding: 12px 20px;
+            font-size: 18px;
+            font-weight: 500;
+            cursor: pointer;
+            border: none;
+            border-radius: 8px;
+            background-color: #8e44ad;
+            color: #ffffff;
+            transition: background-color 0.3s, box-shadow 0.3s, transform 0.2s, color 0.3s;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        button:hover {
+            background-color: #732d91;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+            transform: translateY(-2px);
+        }
+
+        button:active {
+            transform: translateY(1px);
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        a {
+            color: #ffffff;
+            text-decoration: none;
+            margin-top: 20px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+            transition: color 0.3s, text-shadow 0.3s;
+        }
+
+        a:hover {
+            color: #f3f3f3;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Add Question to Quiz</h1>
+
+    <form method="post">
+        <div class="form-group">
+            <label for="question">Question:</label>
+            <input type="text" id="question" name="question" required>
+        </div>
+
+        <div class="form-group">
+            <label for="option1">Option 1:</label>
+            <input type="text" id="option1" name="option1" required>
+        </div>
+
+        <div class="form-group">
+            <label for="option2">Option 2:</label>
+            <input type="text" id="option2" name="option2" required>
+        </div>
+
+        <div class="form-group">
+            <label for="option3">Option 3:</label>
+            <input type="text" id="option3" name="option3" required>
+        </div>
+
+        <div class="form-group">
+            <label for="option4">Option 4:</label>
+            <input type="text" id="option4" name="option4" required>
+        </div>
+
+        <div class="form-group">
+            <label for="correct_option">Correct Option:</label>
+            <select id="correct_option" name="correct_option" required>
+                <option value="" disabled selected>Select correct option</option>
+                <option value="option1">Option 1</option>
+                <option value="option2">Option 2</option>
+                <option value="option3">Option 3</option>
+                <option value="option4">Option 4</option>
+            </select>
+        </div>
+
+        <button type="submit" name="add_another">Add Another Question</button>
+        <button type="submit" name="finish">Finish Quiz</button>
+    </form>
+
+    <a href="{{ url_for('quiz_main') }}">Back to Quizzes</a>
+
+</body>
+</html>

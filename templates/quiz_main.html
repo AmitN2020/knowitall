@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Quizzes</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: 'Montserrat', sans-serif; 
+            background: linear-gradient(135deg, #2e004f 0%, #4b006e 100%);
+            color: #ffffff;
+            opacity: 0; /* Start with opacity 0 for fade-in effect */
+            animation: fadeIn 1s ease forwards; /* Apply fade-in animation */
+        }
+
+        h1 {
+            font-size: 36px;
+            font-weight: 500;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+            transform: translateX(-100%); /* Start off-screen for slide-in effect */
+            animation: slideIn 1s ease forwards; /* Apply slide-in animation */
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            text-align: center;
+            opacity: 0; /* Start with opacity 0 for fade-in effect */
+            animation: fadeIn 1s ease forwards; /* Apply fade-in animation */
+            animation-delay: 0.5s; /* Delay the animation */
+        }
+
+        ul li {
+            margin: 10px 0;
+            display: inline-block;
+        }
+
+        .quiz-button, .q-button {
+            display: inline-block;
+            padding: 15px 30px;
+            font-size: 18px;
+            font-weight: 500;
+            cursor: pointer;
+            border: none;
+            border-radius: 8px;
+            background-color: #8e44ad;
+            color: #ffffff;
+            text-decoration: none;
+            transition: background-color 0.3s, box-shadow 0.3s, transform 0.2s, color 0.3s;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); 
+        }
+
+        .quiz-button:hover, .q-button:hover {
+            background-color: #732d91; 
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4); 
+            transform: translateY(-2px); 
+            color: #ffffff; 
+        }
+
+        .quiz-button:active, .q-button:active {
+            transform: translateY(1px); 
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2); 
+        }
+
+        .back-link {
+            color: #ffffff;
+            text-decoration: none;
+            margin-top: 20px;
+            font-size: 16px;
+            transition: color 0.3s;
+            opacity: 0; /* Start with opacity 0 for fade-in effect */
+            animation: fadeIn 1s ease forwards; /* Apply fade-in animation */
+            animation-delay: 1s; /* Delay the animation */
+        }
+
+        .back-link:hover {
+            color: #cccccc; 
+        }
+
+        .label-available-quizzes {
+            font-size: 20px;
+            margin-top: 30px;
+            font-weight: bold;
+            opacity: 0; /* Start with opacity 0 for fade-in effect */
+            animation: fadeIn 1s ease forwards; /* Apply fade-in animation */
+            animation-delay: 0.8s; /* Delay the animation */
+        }
+
+        .no-quizzes-message {
+            font-size: 18px;
+            margin-top: 20px;
+            color: #ffcccc;
+            opacity: 0; /* Start with opacity 0 for fade-in effect */
+            animation: fadeIn 1s ease forwards; /* Apply fade-in animation */
+            animation-delay: 0.8s; /* Delay the animation */
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Quizzes</h1>
+
+    {% if can_create_quiz %}
+    <ul>
+        <li><button class="q-button" onclick="location.href='{{ url_for('create_quiz') }}'" aria-label="Create New Quiz">Create New Quiz</button></li>
+        <li><button class="q-button" onclick="location.href='{{ url_for('delete_quiz') }}'" aria-label="Delete Quiz">Delete Quiz</button></li>
+        <li><button class="q-button" onclick="location.href='{{ url_for('edit_quiz') }}'" aria-label="Edit Quiz">Edit Quiz</button></li>
+    </ul>
+    <span class="label-available-quizzes">View Quizzes</span>
+    {% if quizzes %}
+    <ul>
+        {% for quiz in quizzes %}
+            <li><button class="quiz-button" onclick="location.href='{{ url_for('all_questions', quiz_id=quiz['id']) }}'" aria-label="Take Quiz: {{ quiz['name'] }}">{{ quiz['name'] }}</button></li>
+        {% endfor %}
+    </ul>
+
+    {% else %}
+    <p class="no-quizzes-message">No quizzes available</p>
+    {% endif %}
+    {% endif %}
+
+    {% if not can_create_quiz %}
+    <span class="label-available-quizzes">Available Quizzes</span>
+    {% if quizzes %}
+    <ul>
+        {% for quiz in quizzes %}
+            <li><button class="quiz-button" onclick="location.href='{{ url_for('quiz', quiz_id=quiz['id']) }}'" aria-label="Take Quiz: {{ quiz['name'] }}">{{ quiz['name'] }}</button></li>
+        {% endfor %}
+    </ul>
+    
+    {% else %}
+    <p class="no-quizzes-message">No quizzes available</p>
+    {% endif %}
+    {% endif %}
+    
+    <a class="back-link" href="{{ url_for('main_page') }}">Back to Main Page</a>
+    
+</body>
+</html>

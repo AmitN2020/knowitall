@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Delete Card</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, #2e004f 0%, #4b006e 100%);
+            color: #ffffff;
+        }
+
+        h1 {
+            font-size: 36px;
+            font-weight: 500;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            text-align: center;
+        }
+
+        ul li {
+            margin: 10px 0;
+            display: inline-block;
+        }
+
+        .back-link {
+            color: #ffffff;
+            text-decoration: none;
+            margin-top: 20px;
+            font-size: 16px;
+            transition: color 0.3s;
+        }
+
+        .back-link:hover {
+            color: #cccccc;
+        }
+
+        .label-available-quizzes {
+            font-size: 20px;
+            margin-top: 30px;
+            font-weight: bold;
+        }
+
+        .no-quizzes-message {
+            font-size: 18px;
+            margin-top: 20px;
+            color: #ffcccc;
+        }
+
+        button {
+            padding: 12px 20px;
+            font-size: 18px;
+            font-weight: 500;
+            cursor: pointer;
+            border: none;
+            border-radius: 8px;
+            background-color: #8e44ad;
+            color: #ffffff;
+            transition: background-color 0.3s, box-shadow 0.3s, transform 0.2s, color 0.3s;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        button:hover {
+            background-color: #732d91;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+            transform: translateY(-2px);
+        }
+
+        button:active {
+            transform: translateY(1px);
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        form {
+            width: 80%;
+            max-width: 600px;
+            background-color: #4b006e;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .form-group {
+            display: grid;
+            grid-template-columns: 1fr 3fr;
+            gap: 10px;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        label {
+            color: #ffffff;
+            font-size: 22px;
+        }
+
+        input[type="text"], select {
+            width: calc(100% - 20px);
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            background-color: #ffffff;
+            color: #333;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 16px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>{{ set_name }}</h1>
+
+    <form method="post">
+        <div class="form-group">
+            <label for="set_id">Question:</label>
+            <select name="card_id" id="card_id" required>
+                    <option value="" disabled selected>Select Question:</option>
+                {% for card in cards %}
+                    <option value="{{ card.id }}">{{ card.question }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <button type="submit" name="submit">Delete</button>
+    </form>
+
+    <a class="back-link" href="{{ url_for('edit_set') }}">Back to Main Page</a>
+
+</body>
+</html>
