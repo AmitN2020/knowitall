@@ -18,7 +18,7 @@ jobs:
         run: pip install pylint
 
       - name: run pylint
-        run: pylint main.py
+        run: pylint app.py
 
       - name: run tests
         run: python -m unittest test.py
