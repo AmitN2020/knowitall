@@ -1,5 +1,7 @@
 import os
 os.environ['DB_FILE'] = 'test_knowitall.db'
+os.environ['SECRET_KEY'] = 'test_secret_key'
+os.environ['TEACHER_SECRET_KEY'] = 'test_teacher_key'
 
 import unittest
 import sqlite3
@@ -90,6 +92,7 @@ class IntegrationTests(unittest.TestCase):
     def setUp(self):
         self.app = app.test_client()
         self.app.testing = True
+        app.config['SECRET_KEY'] = 'test_secret_key'  # Explicitly set the secret key
 
         with app.app_context():
             conn = create_connection()
